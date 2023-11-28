@@ -1,0 +1,70 @@
+﻿@model lab4.Operation
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Operation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="InvestorId" class="control-label"></label>
+                <select asp-for="InvestorId" class="form-control" asp-items="ViewBag.InvestorId"></select>
+                <span asp-validation-for="InvestorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Depositdate" class="control-label"></label>
+                <input asp-for="Depositdate" class="form-control" />
+                <span asp-validation-for="Depositdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Returndate" class="control-label"></label>
+                <input asp-for="Returndate" class="form-control" />
+                <span asp-validation-for="Returndate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepositId" class="control-label"></label>
+                <select asp-for="DepositId" class="form-control" asp-items="ViewBag.DepositId"></select>
+                <span asp-validation-for="DepositId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Depositamount" class="control-label"></label>
+                <input asp-for="Depositamount" class="form-control" />
+                <span asp-validation-for="Depositamount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Refundamount" class="control-label"></label>
+                <input asp-for="Refundamount" class="form-control" />
+                <span asp-validation-for="Refundamount" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Returnstamp" /> @Html.DisplayNameFor(model => model.Returnstamp)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmploeeId" class="control-label"></label>
+                <select asp-for="EmploeeId" class="form-control" asp-items="ViewBag.EmploeeId"></select>
+                <span asp-validation-for="EmploeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

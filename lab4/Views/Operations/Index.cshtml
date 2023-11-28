@@ -1,0 +1,98 @@
+﻿@model lab4.ViewModels.OperationViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="badge rounded-pill bg-secondary">Create New</a>
+</p>
+<form action="@Url.Action("Index","Operations")" method="post">
+    Дата:<input asp-for="@Model.Depositdate" name="Depositdate" type="date"></input>
+    Дата возврата:<input asp-for="@Model.Returndate" name="Returndate" type="date"></input>
+    Кол-во:@Html.TextBox("Depositamount", Model.Depositamount, new {type ="number", step = 0.01 })
+    Кол-во возврата:@Html.TextBox("Refundamount", Model.Refundamount, new {type ="number", step = 0.01 })
+    Печать:@Html.TextBox("Returnstamp", Model.Returnstamp, new {type ="checkbox" })
+    Имя депозита:@Html.TextBox("Deposit", Model.Deposit)
+    Имя работника:@Html.TextBox("EmploeeName", Model.EmploeeName)
+    Имя инвестора:@Html.TextBox("InvestorsName", Model.InvestorsName)
+    <input type="submit" value="Найти"></input>
+</form>
+<table class="table">
+    <thead>
+        <tr class="table-dark">
+            <th>
+                @Html.DisplayNameFor(model => model.Depositdate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Returndate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Depositamount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Refundamount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Returnstamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deposit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmploeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvestorsName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.operations) {
+        <tr class="table-secondary">
+            <td>
+                @Html.DisplayFor(modelItem => item.Depositdate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Returndate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Depositamount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Refundamount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Returnstamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deposit.Name)
+            </td>
+            <td>
+                    @{
+                        var fullName = (item.Emploee != null) ? $"{item.Emploee.Surname} {item.Emploee.Name} {item.Emploee.Middlename}" : "N/A";
+                    }
+
+                    @Html.DisplayFor(modelItem => fullName)
+            </td>
+                <td>
+                    @{
+                        var fullName1 = (item.Investors != null) ? $"{item.Investors.Surname} {item.Investors.Name} {item.Investors.Middlename}" : "N/A";
+                    }
+
+                    @Html.DisplayFor(modelItem => fullName1)
+                </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="badge bg-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="badge bg-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="badge bg-primary">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<page-link page-model="@Model.PageViewModel" page-action="Index"></page-link>

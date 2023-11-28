@@ -1,0 +1,55 @@
+﻿@model lab4.ViewModels.ExchangerateViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="badge rounded-pill bg-secondary">Create New</a>
+</p>
+<form action="@Url.Action("Index","Exchangerates")" method="post">
+    Дата: <input asp-for="@Model.Date" name="Date" type="date"></input>
+    Цена: <input asp-for="@Model.Cost" name="Cost" type="number" step="any"></input>
+    CurrencyName:@Html.TextBox("CurrencyName", Model.CurrencyName)
+    <input type="submit" value="Найти"></input>
+</form>
+<table class="table">
+    <thead>
+        <tr class="table-dark">
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrencyName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.exchangerates) {
+        <tr class="table-secondary">
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.Name)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="badge bg-primary">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.Id" class="badge bg-primary">Details</a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="badge bg-primary">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<page-link page-model="@Model.PageViewModel" page-action="Index"></page-link>
